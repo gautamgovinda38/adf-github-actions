@@ -1,5 +1,5 @@
 {
-	"name": "pl_wait",
+	"name": "pl_wait2",
 	"properties": {
 		"activities": [
 			{
@@ -13,7 +13,7 @@
 			}
 		],
 		"annotations": [],
-		"lastPublishTime": "2025-12-30T08:38:50Z"
+		"lastPublishTime": "2025-12-30T08:52:05Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }
