@@ -1,0 +1,9 @@
+{
+	"name": "adf-orders-dev-india-0000000002025",
+	"location": "southindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "223bc86b-732f-4575-96b9-e35dd3a4d910",
+		"tenantId": "2de06636-b9da-411e-8079-85a4579de1bb"
+	}
+}
