@@ -1,0 +1,30 @@
+title = "Azure Data Factory Secret Scan"
+
+############################
+# BLOCK encryptedCredential
+############################
+[[rules]]
+id = "adf-encrypted-credential"
+description = "ADF encryptedCredential must not be committed"
+regex = '''"encryptedCredential"\s*:\s*".+?"'''
+severity = "CRITICAL"
+tags = ["adf", "azure-data-factory", "credential"]
+
+# Scan only ADF JSON files
+path = '''
+.*(linkedService|pipeline|dataset|integrationRuntime|ARMTemplate).*\.json$
+'''
+
+############################
+# (OPTIONAL) Block SQL password
+############################
+[[rules]]
+id = "adf-sql-password"
+description = "Hardcoded SQL password in ADF"
+regex = '''"password"\s*:\s*"(?!@Microsoft\.KeyVault).+"'''
+severity = "HIGH"
+tags = ["adf", "sql"]
+
+path = '''
+.*linkedService.*\.json$
+'''
