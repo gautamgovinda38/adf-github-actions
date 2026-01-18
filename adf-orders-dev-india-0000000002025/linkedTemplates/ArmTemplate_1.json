@@ -13,6 +13,250 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/ds_landing_orders')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_st_orders",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "01 Landing"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "orders.parquet",
+						"container": "landing"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_landing_orders_items')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_st_orders",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "01 Landing"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "order_items.txt",
+						"container": "landing"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_landing_products')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_st_orders",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "01 Landing"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "products.json",
+						"container": "landing"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_landing_stores')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_st_orders",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "01 Landing"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "stores.json",
+						"container": "landing"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_orders_structured')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_dl_orders",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "04 Structured"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "orders",
+						"fileSystem": "structured"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "ORDER_ID",
+						"type": "INT32"
+					},
+					{
+						"name": "ORDER_DATE",
+						"type": "DATE"
+					},
+					{
+						"name": "CUSTOMER_ID",
+						"type": "INT32"
+					},
+					{
+						"name": "ORDER_STATUS",
+						"type": "UTF8"
+					},
+					{
+						"name": "STORE_ID",
+						"type": "INT32"
+					},
+					{
+						"name": "PRODUCT_ID",
+						"type": "INT32"
+					},
+					{
+						"name": "UNIT_PRICE",
+						"type": "DOUBLE"
+					},
+					{
+						"name": "QUANTITY",
+						"type": "INT32"
+					},
+					{
+						"name": "SUB_TOTAL",
+						"type": "DOUBLE"
+					},
+					{
+						"name": "UPDATED_TIMESTAMP",
+						"type": "INT96"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_products_structured')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_dl_orders",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "04 Structured"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "products",
+						"fileSystem": "structured"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "PRODUCT_ID",
+						"type": "INT32"
+					},
+					{
+						"name": "PRODUCT_NAME",
+						"type": "UTF8"
+					},
+					{
+						"name": "UNIT_PRICE",
+						"type": "DOUBLE"
+					},
+					{
+						"name": "UPDATED_TIMESTAMP",
+						"type": "INT96"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_raw_customers')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_dl_orders",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "01 Raw"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "customers.json",
+						"folderPath": {
+							"value": "@formatDateTime(utcNow(),'yyyy-MM-dd')",
+							"type": "Expression"
+						},
+						"fileSystem": "raw"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ds_raw_orders')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -134,64 +378,6 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/ds_sql_sink')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ls_sql_orders",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [
-					{
-						"name": "window_name",
-						"type": "varchar"
-					},
-					{
-						"name": "window_time",
-						"type": "datetime2",
-						"scale": 7
-					}
-				],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "tw_sink"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ds_sql_source')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ls_sql_orders",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [
-					{
-						"name": "window_name",
-						"type": "varchar"
-					},
-					{
-						"name": "window_time",
-						"type": "datetime2",
-						"scale": 7
-					}
-				],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "tw_source"
-				}
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/ds_stores_structured')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -235,176 +421,6 @@
 						"type": "INT96"
 					}
 				]
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ds_structured_orders_sql')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ls_sql_orders",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "04 Structured"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [
-					{
-						"name": "ORDER_ITEM_ID",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "ORDER_ID",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "ORDER_DATE",
-						"type": "date"
-					},
-					{
-						"name": "CUSTOMER_ID",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "ORDER_STATUS",
-						"type": "varchar"
-					},
-					{
-						"name": "STORE_ID",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "PRODUCT_ID",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "UNIT_PRICE",
-						"type": "decimal",
-						"precision": 18,
-						"scale": 0
-					},
-					{
-						"name": "QUANTITY",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "SUBTOTAL",
-						"type": "decimal",
-						"precision": 18,
-						"scale": 0
-					},
-					{
-						"name": "UPDATED_TIMESTAMP",
-						"type": "datetime2",
-						"scale": 7
-					}
-				],
-				"typeProperties": {
-					"schema": "ORDERS",
-					"table": "ORDERS"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ds_structured_products_sql')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ls_sql_orders",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "04 Structured"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [
-					{
-						"name": "PRODUCT_ID",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "PRODUCT_NAME",
-						"type": "varchar"
-					},
-					{
-						"name": "UNIT_PRICE",
-						"type": "decimal",
-						"precision": 18,
-						"scale": 0
-					},
-					{
-						"name": "UPDATED_TIMESTAMP",
-						"type": "datetime2",
-						"scale": 7
-					}
-				],
-				"typeProperties": {
-					"schema": "ORDERS",
-					"table": "PRODUCTS"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ds_structured_stores_sql')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ls_sql_orders",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "04 Structured"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [
-					{
-						"name": "STORE_ID",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "STORE_NAME",
-						"type": "varchar"
-					},
-					{
-						"name": "LATITUDE",
-						"type": "decimal",
-						"precision": 18,
-						"scale": 0
-					},
-					{
-						"name": "LONGITUDE",
-						"type": "decimal",
-						"precision": 18,
-						"scale": 0
-					},
-					{
-						"name": "UPDATED_TIMESTAMP",
-						"type": "datetime2",
-						"scale": 7
-					}
-				],
-				"typeProperties": {
-					"schema": "ORDERS",
-					"table": "STORES"
-				}
 			},
 			"dependsOn": []
 		},
@@ -480,97 +496,6 @@
 				]
 			},
 			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/pl')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Copy data1",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderStoredProcedureName": "[[dbo].[sp_window_ingest]",
-								"storedProcedureParameters": {
-									"end": {
-										"type": "String",
-										"value": {
-											"value": "@pipeline().parameters.pEnd",
-											"type": "Expression"
-										}
-									},
-									"start": {
-										"type": "String",
-										"value": {
-											"value": "@pipeline().parameters.pStart",
-											"type": "Expression"
-										}
-									}
-								},
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "ds_sql_source",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "ds_sql_sink",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"parameters": {
-					"pEnd": {
-						"type": "string"
-					},
-					"pStart": {
-						"type": "string"
-					}
-				},
-				"annotations": [],
-				"lastPublishTime": "2025-12-25T17:58:22Z"
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/ds_sql_source')]",
-				"[concat(variables('factoryId'), '/datasets/ds_sql_sink')]"
-			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/pl_orders_landing_to_raw')]",
@@ -854,9 +779,14 @@
 				"lastPublishTime": "2025-12-06T10:25:44Z"
 			},
 			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_landing_orders')]",
 				"[concat(variables('factoryId'), '/datasets/ds_raw_orders')]",
+				"[concat(variables('factoryId'), '/datasets/ds_landing_orders_items')]",
 				"[concat(variables('factoryId'), '/datasets/ds_raw_orders_items')]",
+				"[concat(variables('factoryId'), '/datasets/ds_raw_customers')]",
+				"[concat(variables('factoryId'), '/datasets/ds_landing_products')]",
 				"[concat(variables('factoryId'), '/datasets/ds_raw_products')]",
+				"[concat(variables('factoryId'), '/datasets/ds_landing_stores')]",
 				"[concat(variables('factoryId'), '/datasets/ds_raw_stores')]"
 			]
 		},
@@ -1101,11 +1031,7 @@
 					]
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/ds_structured_orders_sql')]",
-				"[concat(variables('factoryId'), '/datasets/ds_structured_products_sql')]",
-				"[concat(variables('factoryId'), '/datasets/ds_structured_stores_sql')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/df_orders_raw_to_cleansed')]",
@@ -1431,6 +1357,7 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/ds_raw_orders')]",
 				"[concat(variables('factoryId'), '/datasets/ds_raw_orders_items')]",
+				"[concat(variables('factoryId'), '/datasets/ds_raw_customers')]",
 				"[concat(variables('factoryId'), '/datasets/ds_raw_products')]",
 				"[concat(variables('factoryId'), '/datasets/ds_raw_stores')]"
 			]
@@ -1583,7 +1510,9 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/ds_stores_structured')]"
+				"[concat(variables('factoryId'), '/datasets/ds_products_structured')]",
+				"[concat(variables('factoryId'), '/datasets/ds_stores_structured')]",
+				"[concat(variables('factoryId'), '/datasets/ds_orders_structured')]"
 			]
 		},
 		{
@@ -1691,56 +1620,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/dataflows/df_orders_raw_to_cleansed')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/pl_orders_structured_to_analytics')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Data flow1",
-						"type": "ExecuteDataFlow",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataflow": {
-								"referenceName": "df_orders_structured_to_analytics",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"productsstructured": {},
-									"stores": {},
-									"ordersstructured": {},
-									"productsanalytics": {},
-									"storesanalytics": {}
-								}
-							},
-							"staging": {},
-							"compute": {
-								"coreCount": 8,
-								"computeType": "General"
-							},
-							"traceLevel": "Fine"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": [],
-				"lastPublishTime": "2025-12-13T16:45:00Z"
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/df_orders_structured_to_analytics')]"
 			]
 		}
 	]

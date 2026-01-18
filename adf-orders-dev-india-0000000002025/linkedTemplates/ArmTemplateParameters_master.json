@@ -5,14 +5,14 @@
 		"factoryName": {
 			"value": "adf-orders-dev-india-0000000002025"
 		},
-		"ls_dl_orders_accountKey": {
-			"value": ""
-		},
 		"ls_sql_orders_password": {
 			"value": ""
 		},
 		"ls_st_orders_connectionString": {
-			"value": ""
+			"value": "DefaultEndpointsProtocol=https;AccountName=storders0000025;EndpointSuffix=core.windows.net;"
+		},
+		"Az_kv_properties_typeProperties_baseUrl": {
+			"value": "https://akv-orders-dev-2026.vault.azure.net/"
 		},
 		"ls_dl_orders_properties_typeProperties_url": {
 			"value": "https://dlorders000025.dfs.core.windows.net/"
