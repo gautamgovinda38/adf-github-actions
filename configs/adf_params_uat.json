@@ -1,0 +1,11 @@
+{
+    "factoryName": "adf-uat-orders-south-india-000000002026",
+    "ls_sql_orders_password":"",
+    "ls_st_orders_connectionString": "DefaultEndpointsProtocol=https;AccountName=stuatorders000025;EndpointSuffix=core.windows.net;",
+    "Az_kv_properties_typeProperties_baseUrl": "https://akv-orders-uat-2026.vault.azure.net/",
+    "ls_dl_orders_properties_typeProperties_url": "https://dlordersuat000025.dfs.core.windows.net/",
+    "ls_sql_orders_properties_typeProperties_server":"sqlserver-orders-south-india-uat.database.windows.net",
+    "ls_sql_orders_properties_typeProperties_database": "sqldb-orders-uat",
+    "ls_sql_orders_properties_typeProperties_userName": "sqladmin"
+
+}
