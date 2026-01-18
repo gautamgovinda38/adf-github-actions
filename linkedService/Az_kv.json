@@ -1,0 +1,10 @@
+{
+	"name": "Az_kv",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://akv-orders-dev-2026.vault.azure.net/"
+		}
+	}
+}
